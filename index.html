@@ -22,20 +22,20 @@
             text-align: center;
             padding: 30px 0;
         }
-        .logo-container { /* Nuevo contenedor para la imagen del logo */
-            width: 80%; /* Ajusta el ancho según necesites */
-            max-width: 600px; /* Ancho máximo de la imagen */
-            margin: 0 auto 20px; /* Centrar y añadir espacio inferior */
+        .logo-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto 20px;
         }
         .logo-img {
             display: block;
-            width: 100%; /* Hacer la imagen responsive dentro de su contenedor */
+            width: 100%;
             height: auto;
         }
         .tagline {
             color: #ccc;
             margin-top: 10px;
-            text-align: center; /* Centrar el eslogan */
+            text-align: center;
         }
         .hero {
             text-align: center;
@@ -111,7 +111,7 @@
             margin-bottom: 0;
         }
         .payment-methods li img {
-            height: 30px; /* Ajusta el tamaño de los logos */
+            height: 30px;
         }
         .delivery-times ul {
             padding-left: 20px;
@@ -155,7 +155,7 @@
         }
         .contact-form button[type="submit"] {
             padding: 15px 30px;
-            background-color: #007bff; /* Un azul llamativo para el botón */
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
@@ -216,14 +216,14 @@
             }
             .logo-container {
                 width: 95%;
-                max-width: none; /* Eliminar el ancho máximo en pantallas pequeñas */
+                max-width: none;
                 margin-bottom: 15px;
             }
             .logo-img {
                 width: 100%;
                 height: auto;
             }
-            .logo { /* Ocultar el texto del logo si todavía existe */
+            .logo {
                 display: none;
             }
             .tagline {
@@ -251,7 +251,7 @@
                 margin-bottom: 10px;
             }
             .payment-methods li img {
-                height: 25px; /* Ajustar tamaño de logos en pantallas pequeñas */
+                height: 25px;
             }
             .language-switcher {
                 top: 10px;
@@ -312,7 +312,7 @@
                     <li><img src="https://cdn-icons-png.flaticon.com/512/179/179431.png" alt="American Express" data-es="American Express" data-en="American Express"></li>
                     <li><img src="https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/GFMSTY6UIZBUBDE2SPIXGWQVIU.jpg" alt="Nequi" data-es="Nequi" data-en="Nequi"></li>
                     <li><img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Logo_Bancolombia2.png" alt="Bancolombia" data-es="Bancolombia" data-en="Bancolombia"></li>
-                    </ul>
+                </ul>
                 <p data-es="Tarjetas de crédito y débito, transferencias bancarias (Nequi, Bancolombia)." data-en="Credit and debit cards, bank transfers (Nequi, Bancolombia)."></p>
             </div>
             <div class="delivery-times">
@@ -361,9 +361,23 @@
     </div>
 
     <script>
+        const contactForm = document.getElementById('contactForm'); // Obtener el formulario
         const esBtn = document.getElementById('es-btn');
         const enBtn = document.getElementById('en-btn');
         const elementsToTranslate = document.querySelectorAll('[data-es], [data-en]');
+
+    contactForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita el envío del formulario
+
+    let message = '';
+    if (document.documentElement.lang === 'es') {
+        message = 'Esta funcionalidad está en construcción. Por favor, contáctanos a través de WhatsApp.';
+    } else {
+        message = 'This functionality is under construction. Please contact us via WhatsApp.';
+    }
+
+    alert(message);
+});
 
         function setLanguage(lang) {
             elementsToTranslate.forEach(element => {
@@ -380,7 +394,7 @@
 
         function initializeLanguage() {
             const browserLanguage = navigator.language || navigator.userLanguage;
-            let defaultLang = 'en'; // Inglés como idioma por defecto si no es español
+            let defaultLang = 'en';
 
             if (browserLanguage.startsWith('es')) {
                 defaultLang = 'es';
@@ -409,7 +423,6 @@
             esBtn.classList.remove('active');
         });
 
-        // Inicializar el idioma al cargar la página
         initializeLanguage();
     </script>
 </body>
