@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAG Power - Tecnología del Futuro</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: #eee;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .logo-container { /* Nuevo contenedor para la imagen del logo */
+            width: 80%; /* Ajusta el ancho según necesites */
+            max-width: 600px; /* Ancho máximo de la imagen */
+            margin: 0 auto 20px; /* Centrar y añadir espacio inferior */
+        }
+        .logo-img {
+            display: block;
+            width: 100%; /* Hacer la imagen responsive dentro de su contenedor */
+            height: auto;
+        }
+        .tagline {
+            color: #ccc;
+            margin-top: 10px;
+            text-align: center; /* Centrar el eslogan */
+        }
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #333, #111);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .hero-title {
+            font-size: 2em;
+            color: #ffc800;
+            margin-bottom: 20px;
+        }
+        .hero-text {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #e68a00;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .feature {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .feature-title {
+            color: #ffc800;
+            margin-bottom: 10px;
+        }
+        .payment-delivery {
+            background-color: #222;
+            padding: 30px 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .payment-delivery-title {
+            font-size: 1.5em;
+            color: #ffc800;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .payment-methods, .delivery-times {
+            margin-bottom: 20px;
+        }
+        .payment-methods h3, .delivery-times h3 {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        .payment-methods ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .payment-methods li {
+            margin-bottom: 0;
+        }
+        .payment-methods li img {
+            height: 30px; /* Ajusta el tamaño de los logos */
+        }
+        .delivery-times ul {
+            padding-left: 20px;
+        }
+        .delivery-times li {
+            margin-bottom: 5px;
+        }
+        .contact {
+            background-color: #222;
+            padding: 30px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .contact-title {
+            font-size: 1.5em;
+            color: #ffc800;
+            margin-bottom: 20px;
+        }
+        .contact-form {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .contact-form label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form input[type="tel"],
+        .contact-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: #eee;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .contact-form button[type="submit"] {
+            padding: 15px 30px;
+            background-color: #007bff; /* Un azul llamativo para el botón */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .contact-options a {
+            display: block;
+            color: #eee;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .contact-options a:hover {
+            color: #ccc;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        .language-switcher button {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 1em;
+            margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: color 0.3s ease;
+        }
+        .language-switcher button.active {
+            color: #eee;
+            font-weight: bold;
+        }
+        .language-switcher button:hover {
+            color: #eee;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            .logo-container {
+                width: 95%;
+                max-width: none; /* Eliminar el ancho máximo en pantallas pequeñas */
+                margin-bottom: 15px;
+            }
+            .logo-img {
+                width: 100%;
+                height: auto;
+            }
+            .logo { /* Ocultar el texto del logo si todavía existe */
+                display: none;
+            }
+            .tagline {
+                font-size: 0.9em;
+                margin-top: 5px;
+            }
+            .hero {
+                padding: 30px 15px;
+            }
+            .hero-title {
+                font-size: 1.7em;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+            .payment-delivery, .contact {
+                padding: 20px 15px;
+            }
+            .payment-methods ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .payment-methods li {
+                margin-bottom: 10px;
+            }
+            .payment-methods li img {
+                height: 25px; /* Ajustar tamaño de logos en pantallas pequeñas */
+            }
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+            }
+            .language-switcher button {
+                font-size: 0.9em;
+                margin-left: 5px;
+                padding: 3px 7px;
+            }
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button id="es-btn">Español</button>
+        <button id="en-btn">English</button>
+    </div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="logo-header.jpg" alt="DAG Power Logo" class="logo-img" data-es="Logo DAG Power" data-en="DAG Power Logo">
+            </div>
+            <p class="tagline" data-es="Tecnología del Futuro en tus Manos" data-en="Future Technology in Your Hands">Tecnología del Futuro en tus Manos</p>
+        </header>
+
+        <section class="hero">
+            <h2 class="hero-title" data-es="Potencia Innovadora para un Mundo Conectado" data-en="Innovative Power for a Connected World">Potencia Innovadora para un Mundo Conectado</h2>
+            <p class="hero-text" data-es="Descubre soluciones de energía avanzadas, diseñadas para el rendimiento y la eficiencia del mañana." data-en="Discover advanced energy solutions, designed for the performance and efficiency of tomorrow.">Descubre soluciones de energía avanzadas, diseñadas para el rendimiento y la eficiencia del mañana.</p>
+            <a href="#contact" class="cta-button" data-es="¡Contáctanos Hoy!" data-en="Contact Us Today!">¡Contáctanos Hoy!</a>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3 class="feature-title" data-es="Rendimiento Superior" data-en="Superior Performance">Rendimiento Superior</h3>
+                <p data-es="Optimizado para ofrecer la máxima potencia en diversas aplicaciones." data-en="Optimized to deliver maximum power in various applications.">Optimizado para ofrecer la máxima potencia en diversas aplicaciones.</p>
+            </div>
+            <div class="feature">
+                <h3 class="feature-title" data-es="Durabilidad Extrema" data-en="Extreme Durability">Durabilidad Extrema</h3>
+                <p data-es="Construido para resistir las condiciones más exigentes, garantizando una larga vida útil." data-en="Built to withstand the most demanding conditions, ensuring a long lifespan.">Construido para resistir las condiciones más exigentes, garantizando una larga vida útil.</p>
+            </div>
+            <div class="feature">
+                <h3 class="feature-title" data-es="Diseño Inteligente" data-en="Smart Design">Diseño Inteligente</h3>
+                <p data-es="Innovación en cada detalle para una integración y un uso sencillos." data-en="Innovation in every detail for easy integration and use.">Innovación en cada detalle para una integración y un uso sencillos.</p>
+            </div>
+        </section>
+
+        <section class="payment-delivery">
+            <h2 class="payment-delivery-title" data-es="Pago y Envío" data-en="Payment and Delivery">Pago y Envío</h2>
+            <div class="payment-methods">
+                <h3 data-es="Métodos de Pago" data-en="Payment Methods">Métodos de Pago</h3>
+                <ul>
+                    <li><img src="visa.png" alt="Visa" data-es="Visa" data-en="Visa"></li>
+                    <li><img src="https://w7.pngwing.com/pngs/397/885/png-transparent-logo-mastercard-product-font-mastercard-text-orange-logo-thumbnail.png" alt="Mastercard" data-es="Mastercard" data-en="Mastercard"></li>
+                    <li><img src="https://cdn-icons-png.flaticon.com/512/179/179431.png" alt="American Express" data-es="American Express" data-en="American Express"></li>
+                    <li><img src="https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/GFMSTY6UIZBUBDE2SPIXGWQVIU.jpg" alt="Nequi" data-es="Nequi" data-en="Nequi"></li>
+                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Logo_Bancolombia2.png" alt="Bancolombia" data-es="Bancolombia" data-en="Bancolombia"></li>
+                    </ul>
+                <p data-es="Tarjetas de crédito y débito, transferencias bancarias (Nequi, Bancolombia)." data-en="Credit and debit cards, bank transfers (Nequi, Bancolombia)."></p>
+            </div>
+            <div class="delivery-times">
+                <h3 data-es="Tiempos de Entrega Estimados" data-en="Estimated Delivery Times">Tiempos de Entrega Estimados</h3>
+                <ul data-es="lista de tiempos de entrega" data-en="list of delivery times">
+                    <li data-es="Envíos nacionales: 3-5 días hábiles" data-en="National shipments: 3-5 business days">Envíos nacionales: 3-5 días hábiles</li>
+                    <li data-es="Envíos internacionales: 7-15 días hábiles (puede variar según el destino)" data-en="International shipments: 7-15 business days (may vary by destination)">Envíos internacionales: 7-15 días hábiles (puede variar según el destino)</li>
+                    <li data-es="Procesamiento de pedidos: 1-2 días hábiles" data-en="Order processing: 1-2 business days">Procesamiento de pedidos: 1-2 días hábiles</li>
+                </ul>
+                <p data-es="Nota: Los tiempos de entrega son estimados y pueden verse afectados por factores externos." data-en="Note: Delivery times are estimated and may be affected by external factors.">Nota: Los tiempos de entrega son estimados y pueden verse afectados por factores externos.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2 class="contact-title" data-es="¿Tienes Preguntas? ¡Contáctanos!" data-en="Have Questions? Contact Us!">¿Tienes Preguntas? ¡Contáctanos!</h2>
+            <p data-es="Nuestro equipo está listo para ayudarte. No dudes en comunicarte." data-en="Our team is ready to assist you. Feel free to reach out.">Nuestro equipo está listo para ayudarte. No dudes en comunicarte.</p>
+            <div class="contact-form">
+                <form id="contactForm" action="mailto:j1006106070m@gmail.com" method="post" enctype="text/plain">
+                    <label for="nombre" data-es="Nombre Completo" data-en="Full Name">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="email" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="telefono" data-es="Teléfono" data-en="Phone Number">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono">
+
+                    <label for="pais" data-es="País de Residencia" data-en="Country of Residence">País de Residencia:</label>
+                    <input type="text" id="pais" name="pais">
+
+                    <label for="ciudad" data-es="Ciudad de Residencia" data-en="City of Residence">Ciudad de Residencia:</label>
+                    <input type="text" id="ciudad" name="ciudad">
+
+                    <button type="submit" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
+                </form>
+            </div>
+            <div class="contact-options">
+                <a href="mailto:info@dag-power.com" data-es="Email: info@dag-power.com" data-en="Email: info@dag-power.com">Email: info@dag-power.com</a>
+                <a href="https://wa.me/573146006404" data-es="WhatsApp: +57 314 600 6404" data-en="WhatsApp: +57 314 600 6404">WhatsApp: +57 314 600 6404</a>
+            </div>
+        </section>
+
+        <footer>
+            <p data-es="© 2025 DAG Power. Todos los derechos reservados." data-en="© 2025 DAG Power. All rights reserved.">© 2025 DAG Power. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        const esBtn = document.getElementById('es-btn');
+        const enBtn = document.getElementById('en-btn');
+        const elementsToTranslate = document.querySelectorAll('[data-es], [data-en]');
+
+        function setLanguage(lang) {
+            elementsToTranslate.forEach(element => {
+                const translation = element.getAttribute(`data-${lang}`);
+                if (translation) {
+                    element.textContent = translation;
+                    if (element.placeholder) {
+                        element.placeholder = translation;
+                    }
+                }
+            });
+            document.documentElement.lang = lang;
+        }
+
+        function initializeLanguage() {
+            const browserLanguage = navigator.language || navigator.userLanguage;
+            let defaultLang = 'en'; // Inglés como idioma por defecto si no es español
+
+            if (browserLanguage.startsWith('es')) {
+                defaultLang = 'es';
+            }
+
+            setLanguage(defaultLang);
+
+            if (defaultLang === 'es') {
+                esBtn.classList.add('active');
+                enBtn.classList.remove('active');
+            } else {
+                enBtn.classList.add('active');
+                esBtn.classList.remove('active');
+            }
+        }
+
+        esBtn.addEventListener('click', () => {
+            setLanguage('es');
+            esBtn.classList.add('active');
+            enBtn.classList.remove('active');
+        });
+
+        enBtn.addEventListener('click', () => {
+            setLanguage('en');
+            enBtn.classList.add('active');
+            esBtn.classList.remove('active');
+        });
+
+        // Inicializar el idioma al cargar la página
+        initializeLanguage();
+    </script>
+</body>
+</html>
