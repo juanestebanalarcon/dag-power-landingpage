@@ -429,17 +429,36 @@
         const elementsToTranslate = document.querySelectorAll('[data-es], [data-en]');
 
         contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+event.preventDefault();
+const nombre = document.getElementById('nombre').value;
+const email = document.getElementById('email').value;
+const telefono = document.getElementById('telefono').value;
+const pais = document.getElementById('pais').value;
+const ciudad = document.getElementById('ciudad').value;
 
-            let message = '';
-            if (document.documentElement.lang === 'es') {
-                message = 'Esta funcionalidad está en construcción. Por favor, contáctanos a través de WhatsApp.';
-            } else {
-                message = 'This functionality is under construction. Please contact us via WhatsApp.';
-            }
+ let subject = '';
+ let body = '';
 
-            alert(message);
-        });
+ if (document.documentElement.lang === 'es') {
+ subject = `Información - ${nombre}`;
+ body = `Nombre Completo: ${nombre}
+Correo Electrónico: ${email}
+Teléfono: ${telefono}
+País de Residencia: ${pais}
+Ciudad de Residencia: ${ciudad}`;
+ } else {
+ subject = `Information - ${nombre}`;
+body = `Full Name: ${nombre}
+Email Address: ${email}
+Phone Number: ${telefono}
+Country of Residence: ${pais}
+City of Residence: ${ciudad}`;
+ }
+
+ const mailtoUrl = `mailto:info@dag-power.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+ window.location.href = mailtoUrl;
+ });
+
 
         function setLanguage(lang) {
             elementsToTranslate.forEach(element => {
