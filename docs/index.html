@@ -472,7 +472,7 @@ City of Residence: ${ciudad}`;
  }
 
  const mailtoUrl = `mailto:info@dag-power.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
- window.location.href = mailtoUrl;
+ window.open(mailtoUrl,"_blank");
  });
 
 
