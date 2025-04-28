@@ -12,6 +12,11 @@
             background-color: #111;
             color: #eee;
             line-height: 1.6;
+            -webkit-user-select: none;  /* Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE/Edge */
+            user-select: none;          /* Standard */
+            user-select: none;
         }
         .container {
             max-width: 1200px;
@@ -43,6 +48,15 @@
             background: linear-gradient(135deg, #333, #111);
             border-radius: 8px;
             margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-image-top {
+            width: 100%;
+            max-height: auto;
+            object-fit: contain;
+            margin-bottom: 20px;
         }
         .hero-title {
             font-size: 2em;
@@ -52,7 +66,15 @@
         .hero-text {
             font-size: 1.1em;
             margin-bottom: 30px;
+            text-align: center;
         }
+        .hero-image-bottom {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin-top: 20px;
+        }
+
         .cta-button {
             display: inline-block;
             padding: 15px 30px;
@@ -158,7 +180,7 @@
             padding: 15px 30px;
             background-color: #007bff;
             color: white;
-            border: none;
+            text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
@@ -251,7 +273,7 @@
             .payment-methods li {
                 margin-bottom: 10px;
             }
-            .payment-methods li img {
+             .payment-methods li img {
                 height: 25px;
             }
             .language-switcher {
@@ -263,12 +285,10 @@
                 margin-left: 5px;
                 padding: 3px 7px;
             }
-            .contact-form {
+             .contact-form {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Product Section Styles */
         .product-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -280,18 +300,19 @@
             border-radius: 8px;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
         .product-card img {
             width: 100%;
             border-radius: 8px;
             margin-bottom: 15px;
-            max-height: 200px; /* Limitar la altura de la imagen */
-            object-fit: contain;  /* Asegurar que la imagen se ajuste al contenedor */
+             max-height: 200px;
+            object-fit: contain;
         }
         .product-card h3 {
             color: #ffc800;
             margin-bottom: 10px;
-            font-size: 1.2em;
+             font-size: 1.2em;
         }
         .product-card p {
             margin-bottom: 15px;
@@ -312,11 +333,103 @@
             border-radius: 5px;
             font-weight: bold;
             transition: background-color 0.3s ease;
-            font-size: 1em;
+             font-size: 1em;
         }
         .product-card .buy-button:hover {
             background-color: #e68a00;
         }
+        /* Popup Styles */
+.product-popup {
+    display: none; /* Initially hidden */
+    position: fixed; /* Sit on top of everything */
+    z-index: 1; /* Higher than other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+}
+
+.popup-content {
+    background-color: #222;
+    margin: 15% auto; /* Center the popup */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be a percentage or fixed width */
+    max-width: 500px;
+    position: relative;
+    border-radius: 8px;
+}
+
+.close-popup {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+/* Responsive layout for product cards */
+@media (max-width: 768px) {
+    .product-section {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust min-width for smaller screens */
+    }
+}
+.pdf-section {
+                background-color: #222;
+                padding: 30px 20px;
+                border-radius: 5px;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .pdf-title {
+                font-size: 1.5em;
+                color: #ffc800;
+                margin-bottom: 20px;
+            }
+            .pdf-container {
+                margin-bottom: 20px;
+                border: 1px solid #555;
+                border-radius: 5px;
+                overflow: hidden; /* Para asegurar que el borde se aplique correctamente */
+            }
+            .pdf-download-button {
+                display: inline-block;
+                padding: 15px 30px;
+                background-color: #ff9800;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                font-size: 1em;
+                margin-top: 10px;
+            }
+            .pdf-download-button:hover {
+                background-color: #e68a00;
+            }
+
+            @media (max-width: 768px) {
+                .pdf-container iframe {
+                    height: 400px;
+                }
+            }
+            @media (max-width: 480px) {
+                .pdf-container iframe {
+                    height: 300px;
+                }
+            }
     </style>
 </head>
 <body>
@@ -325,21 +438,25 @@
         <button id="en-btn">English</button>
     </div>
     <div class="container">
-        <header>
-            <div class="logo-container">
-                <img src="logo-header.jpg" alt="DAG Power Logo" class="logo-img" data-es="Logo DAG Power" data-en="DAG Power Logo">
-            </div>
-            <p class="tagline" data-es="Tecnología del Futuro en tus Manos" data-en="Future Technology in Your Hands">Tecnología del Futuro en tus Manos</p>
-        </header>
-
         <section class="hero">
+            <img src="header1-1-.png" alt="Imagen Superior del Hero" class="hero-image-top" data-es="Imagen Superior del Hero" data-en="Hero Top Image">
             <h2 class="hero-title" data-es="Potencia Innovadora para un Mundo Conectado" data-en="Innovative Power for a Connected World">Potencia Innovadora para un Mundo Conectado</h2>
             <p class="hero-text" data-es="La batería LTO se denomina batería de titanato de litio (Li4Ti5O12), 
                 es una batería de iones de litio de nueva generación que utiliza el LTO como material de cátodo en lugar de grafito, el ánodo puede ser LiCoO2, LiMn2O4, LiFePO4, y NiCoMn. 
                 Como batería de litio recargable de nuevo tipo, la batería LTO tiene un gran rendimiento de perfecta seguridad, 
-                alta estabilidad, ciclo de vida súper largo, Rendimiento de carga / descarga rápida, y fuerte tolerancia a la temperatura" data-en="LTO battery is called lithium titanate battery (Li4Ti5O12), it is a new generation lithium ion battery that uses LTO as cathode material instead of graphite, 
+                alta estabilidad, ciclo de vida súper largo, Rendimiento de carga / descarga rápida, y fuerte tolerancia a la temperatura."
+                data-en="LTO battery is called lithium titanate battery (Li4Ti5O12), it is a new generation lithium ion battery that uses LTO as cathode material instead of graphite, 
                 the anode can be LiCoO2, LiMn2O4, LiFePO4, and NiCoMn. As a new type rechargeable lithium battery, LTO battery has great performance of perfect safety, 
-                high stability, super long cycle life, fast charge/discharge performance, and strong temperature tolerance.">Descubre soluciones de energía avanzadas, diseñadas para el rendimiento y la eficiencia del mañana.</p>
+                high stability, super long cycle life, fast charge/discharge performance, and strong temperature tolerance.">
+                La batería LTO se denomina batería de titanato de litio (Li4Ti5O12), 
+                es una batería de iones de litio de nueva generación que utiliza el LTO como material 
+                de cátodo en lugar de grafito, el ánodo puede ser LiCoO2, LiMn2O4, LiFePO4, y NiCoMn. 
+                Como batería de litio recargable de nuevo tipo, la batería LTO tiene un gran rendimiento 
+                de perfecta seguridad, alta estabilidad, ciclo de vida súper largo, Rendimiento de carga / descarga rápida, 
+                y fuerte tolerancia a la temperatura.
+            </p>
+            <img src="portada2-2.png" alt="Imagen Inferior del Hero" class="hero-image-bottom" data-es="Imagen Inferior del Hero" data-en="Hero Bottom Image">
+            <br>
             <a href="#contact" class="cta-button" data-es="¡Contáctanos Hoy!" data-en="Contact Us Today!">¡Contáctanos Hoy!</a>
         </section>
 
@@ -359,18 +476,283 @@
         </section>
 
         <section class="product-section">
+
             <div class="product-card">
-                <img src="./product1.jpg" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
-                <h3 data-es="Batería DAG-POWER" data-en="LTO Battery DAG-POWER">Batería LTO YINLONG 66160H</h3>
-                <p data-es="Batería de litio titanio de 2.3V y 40Ah, 16.000 ciclos con DOD 100% a 80% de capacidad a temperatura normal, hasta 25.000 veces ciclo de vida." data-en="2.3V 40Ah lithium titanate battery, ideal for high-power and long-life applications.">Batería de titanato de litio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
-                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%Batería%20DAG-POWER" target="_blank" class="buy-button" data-es="Más Información" data-en="More Info">Comprar</a>
+                <img src="./media/K-DAG006.PNG" alt="Kit 6C Batería LTO DAG-POWER" data-es="Kit 6C Batería LTO DAG-POWER" data-en="LTO Battery Kit 6c">
+                <h3 data-es="Kit 6C Batería LTO DAG-POWER" data-en="LTO Battery Kit 6C DAG-POWER">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+Se entrega el kit desarmado con las partes que se detallan en la descripción.
+La imagen de la derecha es representativa de como puede quedar el producto armado.
+Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).
+
+" data-en="
+The kit is delivered disassembled with the parts detailed in the description.
+The image on the right is representative of how the assembled product can look.
+The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).
+">Batería de titanato de litio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+<a href="#" class="show-popup buy-button" data-popup="popup-1" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Kit%206C%20Bateria%20DAG-POWER" target="_blank" class="buy-button" data-es="Más Información" data-en="More Info">Comprar</a>
             </div>
             <div class="product-card">
-                <img src="./product2.jpg" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
-                <h3 data-es="Balanceador DAG-POWER" data-en="DAG-POWER Balancer">Batería LTO YINLONG 66160H</h3>
-                <p data-es="Balanceador activo para litio titanio 6 celdas - 5-10Amp" data-en="Active balancer of lithium titanate.">Batería de titanato de litio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
-                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Balanceador%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+                <img src="./media/K-DAG012.PNG" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="Kit 12C Batería LTO DAG-POWER" data-en="DAG-POWER Kit Battery 12C">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit desarmado con las partes que se detallan en la descripción.
+La imagen de la derecha es representativa de como puede quedar el producto armado.
+Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).
+
+                " data-en="
+                The kit is delivered disassembled with the parts detailed in the description.
+The image on the right is representative of how the assembled product can look.
+The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-2" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Kit%2012C%20Bateria%20DAG-POWER%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
             </div>
+            
+            <div class="product-card">
+                <img src="./media/K-DAG018.PNG" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="Kit 18C Batería LTO DAG-POWER" data-en="DAG-POWER Kit Battery 18C">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit desarmado con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como puede quedar el producto armado.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).
+
+                " data-en="
+                The kit is delivered disassembled with the parts detailed in the description.
+                The image on the right is representative of how the assembled product can look.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-3" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Kit%2018C%20Bateria%20DAG-POWER%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/K-DAG036.PNG" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="Kit 36C Batería LTO DAG-POWER" data-en="DAG-POWER Kit Battery 36C">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit desarmado con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como puede quedar el producto armado.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered disassembled with the parts detailed in the description.
+                The image on the right is representative of how the assembled product can look.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-4" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Kit%2036C%20Bateria%20DAG-POWER%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PU-DAG006 mas tornillo.jpg" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P06 Platina Unión celdas 2" x 1/2 x 100mm" data-en="DAG-P06 Connection Plate 2 x 1/2 x 150mm">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).
+                A 20°C).
+
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+                The image on the right is representative of what the product looks like.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-5" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Platina%20UniOn%20celdas%20x%20100mm%20DAG-POWER%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PCX-DAG006 mas tornillos.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P06 Platina Conexión 2 x 1/2 x 150mm DAG-POWER" data-en="DAG-POWER Kit Battery 12C">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+                The image on the right is representative of what the product looks like.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).                
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-6" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Kit%20Platina%20Conexion%202%20x%201-2%20x%20150mm%20DAG-POWER%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PU-DAG012 mas tornillos.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P12 Platina Unión celdas 4 x 1/2 x 100mm" data-en="DAG-P12 Cell Union Plate 4 x 1/2 x 100mm">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+                The image on the right is representative of what the product looks like.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).                
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-7" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%DAG-P12%20Platina%20Union%20celdas%204x1-2x100mm%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PCX-DAG012 mas tornillos.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P12 Platina Conexión 4 x 1/2 x 150mm DAG-POWER" data-en="DAG-POWER Kit Battery 12CDAG-P12 Connection Platen 4 x 1/2 x 150mm">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+                The image on the right is representative of what the product looks like.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).                
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-8" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%DAG-P12%20Platina%20Conexion%204x1-2x150mm%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PU-DAG018 mas tornillos.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P18 Platina Unión celdas 4 x 1/2 x 168mm DAG-POWER" data-en="DAG-P18 Cell Union Plate 4 x 1/2 x 168mm">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+                The image on the right is representative of what the product looks like.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).                
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-9" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20DAG-P18_PlatinaUnion_celdas4x1/2x168mm%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PCX-DAG018 mas tornillos.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P18 Platina Conexión 4 x 1/2 x 168mm" data-en="DAG-P18 Connection Plate 4 x 1/2 x 168mm">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+                The image on the right is representative of what the product looks like.
+                The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).                
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-10" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20DAG-P18PlatinaConexion4x1-2x168mm%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PU-DAG036 mas tornillos.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="DAG-P36 Platina Unión celdas 4 x 1/2 x 369mm" data-en="DAG-P36 Cell Union Plate 4 x 1/2 x 369mm">Batería LTO YINLONG 66160H</h3>
+                <p data-es="
+                Se entrega el kit con las partes que se detallan en la descripción.
+                La imagen de la derecha es representativa de como es el producto.
+                Las platinas son de aluminio AA6101B T64 usada para conducción eléctrica (55% IACS A 20°C).                
+                " data-en="
+                The kit is delivered with the parts detailed in the description.
+The image on the right is representative of what the product looks like.
+The plates are made of aluminum AA6101B T64 used for electrical conduction (55% IACS at 20°C).
+
+                ">Balanceador activo para litio titanio de 2.3V y 40Ah, ideal para aplicaciones de alta potencia y larga duración.</p>
+                <a href="#" class="show-popup buy-button" data-popup="popup-11" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20DAG-P36PlatinaUnionceldas4x1-2x369mm%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PROD15.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="LTO DAG POWER 66160H 40Ah 2,3 V" data-en="LTO DAG POWER 66160H 40Ah 2,3 V">Batería LTO YINLONG 66160H</h3>
+                <br>
+                <a href="#" class="show-popup buy-button" data-popup="popup-12" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20LTO_DAG_POWER_66160H_40Ah_2_3V%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+            <div class="product-card">
+                <img src="./media/PR16.png" alt="Batería LTO YINLONG 66160H" data-es="Batería LTO YINLONG 66160H" data-en="LTO Battery YINLONG 66160H">
+                <h3 data-es="Balanceador activo 6S 5A" data-en="DAG-POWER Active Balancer 6S 5A">Batería LTO YINLONG 66160H</h3>
+                <br>
+                <a href="#" class="show-popup buy-button" data-popup="popup-13" data-es="Ver ficha ténica" data-en="View Sheet">Ver Imagen</a> |
+                <a href="https://wa.me/573146006404?text=Hola,%20me%20interesa%20el%20producto%20Balanceador_activo6S_5A%20" target="_blank" class="buy-button" data-es="Más Información" data-en="Mor Info">Más Información</a>
+            </div>
+<!-- popups -->
+<div id="popup-1" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-1">&times;</span>
+        <img src="./media/cheatsheet/PU-DAG006.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-2" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-2">&times;</span>
+        <img src="./media/cheatsheet/K-DAG012.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-3" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-3">&times;</span>
+        <img src="./media/cheatsheet/K-DAG018.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-4" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-4">&times;</span>
+        <img src="./media/cheatsheet/K-DAG036.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-5" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-5">&times;</span>
+        <img src="./media/cheatsheet/PU-DAG006.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-6" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-6">&times;</span>
+        <img src="./media/cheatsheet/PCX-DAG006.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-7" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-7">&times;</span>
+        <img src="./media/cheatsheet/PU-DAG012.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-8" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-8">&times;</span>
+        <img src="./media/cheatsheet/PU-DAG006.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-9" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-9">&times;</span>
+        <img src="./media/cheatsheet/PCX-DAG012.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-10" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-10">&times;</span>
+        <img src="./media/cheatsheet/PU-DAG018.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+<div id="popup-11" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-11">&times;</span>
+        <img src="./media/cheatsheet/PCX-DAG018.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-12" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-12">&times;</span>
+        <img src="./media/cheatsheet/PU-DAG036.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-13" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-13">&times;</span>
+        <img src="./media/cheatsheet/PCX-DAG036.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-14" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-14">&times;</span>
+        <img src="./media/cheatsheet/LTO-DAG-40AH.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
+<div id="popup-15" class="product-popup">
+    <div class="popup-content">
+        <span class="close-popup" data-popup="popup-15">&times;</span>
+        <img src="./media/cheatsheet/BC-LTO-DAG-40AH.jpg" alt="Informative Image 1" data-es="Imagen Informativa 1" data-en="Informative Image 1">
+    </div>
+</div>
         </section>
 
         <section class="payment-delivery">
@@ -379,13 +761,21 @@
                 <h3 data-es="Métodos de Pago" data-en="Payment Methods">Métodos de Pago</h3>
                 <ul>
                     <li><img src="https://cdn.freebiesupply.com/logos/large/2x/visa-logo-svg-vector.svg" alt="Visa" data-es="Visa" data-en="Visa"></li>
-                    <li><img src="https://w7.pngwing.com/pngs/397/885/png-transparent-logo-mastercard-product-font-mastercard-text-orange-logo-thumbnail.png" alt="Mastercard" data-es="Mastercard" data-en="Mastercard"></li>
+                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/MasterCard_early_1990s_logo.png" alt="Mastercard" data-es="Mastercard" data-en="Mastercard"></li>
                     <li><img src="https://cdn-icons-png.flaticon.com/512/179/179431.png" alt="American Express" data-es="American Express" data-en="American Express"></li>
                     <li><img src="https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/GFMSTY6UIZBUBDE2SPIXGWQVIU.jpg" alt="Nequi" data-es="Nequi" data-en="Nequi"></li>
                     <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxlf8H1ChT1jBDgvGVTP4O8DEUFnEt_XK5SQ&s" alt="Bancolombia" data-es="Bancolombia" data-en="Bancolombia"></li>
                 </ul>
                 <p data-es="Tarjetas de crédito y débito, transferencias bancarias (Nequi, Bancolombia)." data-en="Credit and debit cards, bank transfers (Nequi, Bancolombia)."></p>
             </div>
+        </section>
+        <section class="pdf-section">
+            <h2 class="pdf-title" data-es="Catálogo de Productos" data-en="Products Catalog">Catálogo de Productos</h2>
+            <div class="pdf-container">
+                <iframe src="./media/products.pdf" width="100%" height="500px" style="border:none;"></iframe>
+            </div>
+            <p data-es="Descarga nuestro catálogo completo de productos en formato PDF." data-en="Download our complete product catalog in PDF format.">Descarga nuestro catálogo completo de productos en formato PDF.</p>
+            <a href="./media/products.pdf" download class="pdf-download-button" data-es="Descargar Catálogo" data-en="Download Catalog">Descargar Catálogo</a>
         </section>
 
         <section id="contact" class="contact">
@@ -400,13 +790,13 @@
                     <input type="email" id="email" name="email" required>
 
                     <label for="telefono" data-es="Teléfono" data-en="Phone Number">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono">
+                    <input type="tel" id="telefono" name="telefono" required>
 
                     <label for="pais" data-es="País de Residencia" data-en="Country of Residence">País de Residencia:</label>
-                    <input type="text" id="pais" name="pais">
+                    <input type="text" id="pais" name="pais" required>
 
                     <label for="ciudad" data-es="Ciudad de Residencia" data-en="City of Residence">Ciudad de Residencia:</label>
-                    <input type="text" id="ciudad" name="ciudad">
+                    <input type="text" id="ciudad" name="ciudad" required>
                     <br>
                     <br>
                     <button type="submit" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
@@ -425,55 +815,95 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
                     <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
                   </svg>
-                <a href="https://wa.me/573116345594" target="_blank" data-es="WhatsApp: +57 311 634 5594" data-en="WhatsApp: +57 311 634 5594">WhatsApp: +57 311 634 5594</a>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-                    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
-                  </svg>
                 <a href="https://wa.me/573165278119" target="_blank" data-es="WhatsApp: +57 316 527 8119" data-en="WhatsApp: +57 316 527 8119">WhatsApp: +57 316 527 8119</a>
             </div>
+            
         </section>
 
         <footer>
             <p data-es="© 2025 DAG Power. Todos los derechos reservados." data-en="© 2025 DAG Power. All rights reserved.">© 2025 DAG Power. Todos los derechos reservados.</p>
         </footer>
+
     </div>
 
     <script>
+        // Get all popup triggers and close buttons
+const popupTriggers = document.querySelectorAll('.show-popup');
+const popupCloseButtons = document.querySelectorAll('.close-popup');
+
+// Function to show a popup
+function showPopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'block';
+    }
+}
+
+// Function to hide a popup
+function hidePopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
+// Add event listeners to popup triggers
+popupTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        const popupId = this.getAttribute('data-popup');
+        showPopup(popupId);
+    });
+});
+
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+});
+
+// Add event listeners to close buttons
+popupCloseButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const popupId = this.getAttribute('data-popup');
+        hidePopup(popupId);
+    });
+});
+
+
         const contactForm = document.getElementById('contactForm');
         const esBtn = document.getElementById('es-btn');
         const enBtn = document.getElementById('en-btn');
         const elementsToTranslate = document.querySelectorAll('[data-es], [data-en]');
 
         contactForm.addEventListener('submit', function(event) {
-event.preventDefault();
-const nombre = document.getElementById('nombre').value;
-const email = document.getElementById('email').value;
-const telefono = document.getElementById('telefono').value;
-const pais = document.getElementById('pais').value;
-const ciudad = document.getElementById('ciudad').value;
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const pais = document.getElementById('pais').value;
+            const ciudad = document.getElementById('ciudad').value;
 
- let subject = '';
- let body = '';
+             let subject = '';
+             let body = '';
 
- if (document.documentElement.lang === 'es') {
- subject = `Información - ${nombre}`;
- body = `Nombre Completo: ${nombre}
+             if (document.documentElement.lang === 'es') {
+                subject = `Información - ${nombre}`;
+                 body = `Nombre Completo: ${nombre}
 Correo Electrónico: ${email}
 Teléfono: ${telefono}
 País de Residencia: ${pais}
 Ciudad de Residencia: ${ciudad}`;
- } else {
- subject = `Information - ${nombre}`;
-body = `Full Name: ${nombre}
+             } else {
+                subject = `Information - ${nombre}`;
+                body = `Full Name: ${nombre}
 Email Address: ${email}
 Phone Number: ${telefono}
 Country of Residence: ${pais}
 City of Residence: ${ciudad}`;
- }
+             }
 
- const mailtoUrl = `mailto:info@dag-power.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
- window.open(mailtoUrl,"_blank");
- });
+             const mailtoUrl = `mailto:info@dag-power.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+             window.open(mailtoUrl,"_blank");
+        });
 
 
         function setLanguage(lang) {
@@ -486,7 +916,7 @@ City of Residence: ${ciudad}`;
                     }
                 }
             });
-            document.documentElement.lang = lang;
+             document.documentElement.lang = lang;
         }
 
         function initializeLanguage() {
